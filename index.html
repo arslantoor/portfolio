@@ -38,36 +38,67 @@
 
   gtag('config', 'G-P39GC9J4RS');
 </script>
-
-<!-- Email template -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script type="text/javascript">
-    (function() {
-        // https://dashboard.emailjs.com/admin/account
-        emailjs.init({
-          publicKey: "mcXh2PGKs2hH39v9d",
-        });
-    })();
-</script>
-<script type="text/javascript">
-    document.getElementById('contact-form').addEventListener('submit', function (e) {
-    e.preventDefault();
 
-    emailjs.send("service_kfq4ysg", "template_1a3rxna", {
-      from_name: document.getElementById("name").value,
-      from_email: document.getElementById("email").value,
-      subject: document.getElementById("subject").value,
-      message: document.querySelector("textarea[name='message']").value,
-    }).then(function () {
-      document.querySelector(".sent-message").style.display = "block";
-      document.querySelector(".error-message").style.display = "none";
-      document.getElementById('contact-form').reset();
-    }, function (error) {
-      document.querySelector(".error-message").innerText = "Error: " + JSON.stringify(error);
-      document.querySelector(".error-message").style.display = "block";
+<script type="text/javascript">
+  (function () {
+    emailjs.init({
+      publicKey: "mcXh2PGKs2hH39v9d",
+    });
+  })();
+  function formatCustomDate(date) {
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const dayName = days[date.getDay()];
+  const monthName = months[date.getMonth()];
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+
+  let hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12; // Convert 0 to 12
+
+  return `${dayName} ${monthName} ${day} ${year} ${hours}:${minutes} ${ampm}`;
+}
+  const now = new Date();
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("contact-form");
+    const loading = document.querySelector(".loading");
+    const sentMessage = document.querySelector(".sent-message");
+    const errorMessage = document.querySelector(".error-message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      loading.style.display = "block";
+      sentMessage.style.display = "none";
+      errorMessage.style.display = "none";
+
+      emailjs.send("service_kfq4ysg", "template_1a3rxna", {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        title: document.getElementById("subject").value,
+        message: document.querySelector("textarea[name='message']").value,
+        time:formatCustomDate(now)
+      }).then(
+        function () {
+          loading.style.display = "none";
+          sentMessage.style.display = "block";
+          form.reset();
+        },
+        function (error) {
+          loading.style.display = "none";
+          errorMessage.innerText = "Something went wrong: " + error.text;
+          errorMessage.style.display = "block";
+        }
+      );
     });
   });
 </script>
+
 </head>
 <style>
   
@@ -95,11 +126,16 @@
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container">
-      <h1><a href="index.html">Muhammad Arslan Toor</a></h1>
+      <h1><a href="index.html">Muhammad Arslan Toor </a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="mr-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-      <h2><span>Sr. Software Engineer </span></h2>
-
+      <!-- <a href="index.html" class="mr-auto"><img src="assets/img/mylogo.png" alt="" class="img-fluid"></a> -->
+      <div>
+        <h2><span>Sr. Software Engineer / Full Stack Developer / Team Lead</span></h2>
+        <h2 class="my-3 text-sm" style="
+        font-size: medium;
+        color: white;
+    ">My passion is to deliver useful software tools to Convert customers and move the company successful as much as possible.</h2>
+      </div>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link active" href="#header">Home</a></li>
@@ -870,7 +906,7 @@
           </div>
         </div>
         <div class="form-group mt-3">
-          <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+          <input type="text" class="form-control" name="title" id="subject" placeholder="Subject" required>
         </div>
         <div class="form-group mt-3">
           <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
