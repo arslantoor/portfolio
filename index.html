@@ -28,6 +28,10 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- vanta js scripts -->
+
+
   <!-- Google tag (gtag.js) -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-P39GC9J4RS"></script>
@@ -121,8 +125,7 @@
   
 </style>
 
-<body>
-
+<body id="vanta-bg">
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container">
@@ -938,20 +941,23 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <script src="three.r134.min.js"></script>
-<script src="vanta.dots.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.waves.min.js"></script>
 <script>
-VANTA.DOTS({
-  el: "#your-element-selector",
-  mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00
-})
-</script>
+    // Wait for DOM to load
+    window.addEventListener('DOMContentLoaded', () => {
+      VANTA.DOTS({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00
+      });
+    });
+  </script>
 
 </body>
 
