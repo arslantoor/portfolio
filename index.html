@@ -105,14 +105,12 @@
 
 </head>
 <style>
-  
-    .video-container {
+  .video-container {
     position: static;
     width: 100vw;
     overflow: hidden;
-}
-
-#background-video {
+  }
+  #background-video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -121,20 +119,19 @@
     object-fit: cover;
     transform: translate(-50%, -50%);
     z-index: -1;
-}
-body#vanta-bg {
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
-  min-width: 100vw;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-  
+  }
+  #vanta-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+  }
 </style>
-
-<body id="vanta-bg">
+<body>
+  <div id="vanta-bg"></div>
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container">
@@ -953,7 +950,7 @@ RabitQueue</span></li>
       });
     });
   </script>
-
+</div>
 </body>
 
 </html>
